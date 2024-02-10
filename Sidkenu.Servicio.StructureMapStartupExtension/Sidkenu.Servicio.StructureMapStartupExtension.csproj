@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="StructureMap" Version="4.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sidkenu.Dominio.UnidadDeTrabajo\Sidkenu.Dominio.UnidadDeTrabajo.csproj" />
+    <ProjectReference Include="..\Sidkenu.Infraestructura\Sidkenu.Infraestructura.csproj" />
+    <ProjectReference Include="..\Sidkenu.Servicio.Implementacion\Sidkenu.Servicio.Implementacion.csproj" />
+    <ProjectReference Include="..\Sidkenu.Servicio.Mapper\Sidkenu.Servicio.Mapper.csproj" />
+  </ItemGroup>
+
+</Project>

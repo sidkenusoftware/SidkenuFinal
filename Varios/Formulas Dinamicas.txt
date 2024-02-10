@@ -1,0 +1,99 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+
+public class Employee
+{
+    public int EmployeeId { get; set; }
+    public string Name { get; set; }
+    public double Salary { get; set; }
+    public double Bonus { get; set; }
+}
+
+public class Expense
+{
+    public int ExpenseId { get; set; }
+    public string Description { get; set; }
+    public double Amount { get; set; }
+}
+
+public class YourDbContext : DbContext
+{
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<Expense> Expenses { get; set; }
+}
+
+public class DynamicCalculator
+{
+    private readonly DbContext _context;
+
+    public DynamicCalculator(DbContext context)
+    {
+        _context = context;
+    }
+
+    public double Calculate(Dictionary<string, string> fieldsToCalculate)
+    {
+        double result = 0;
+
+        foreach (var entry in fieldsToCalculate)
+        {
+            var data = _context.Set<object>();
+
+            // Construye una consulta LINQ dinámica utilizando Dynamic LINQ Core
+            var query = data.Select("new { " + entry.Value + " }");
+
+            // Ejecuta la consulta y realiza el cálculo
+            foreach (var item in query)
+            {
+                // Evalúa la fórmula dinámica
+                result += EvaluateFormula(entry.Key, item.GetType().GetProperty(entry.Value).GetValue(item));
+            }
+        }
+
+        return result;
+    }
+
+    private double EvaluateFormula(string entity, object value)
+    {
+        // Define la lógica para evaluar la fórmula
+        switch (entity)
+        {
+            case "Employee":
+                return ((Employee)value).Salary + ((Employee)value).Bonus;
+            case "Expense":
+                return ((Expense)value).Amount;
+            default:
+                return 0; // Manejo de entidades desconocidas
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<YourDbContext>();
+        optionsBuilder.UseInMemoryDatabase("EmployeesAndExpensesDb");
+
+        using (var context = new YourDbContext(optionsBuilder.Options))
+        {
+            context.Employees.Add(new Employee { Name = "Empleado 1", Salary = 50000, Bonus = 2000 });
+            context.Expenses.Add(new Expense { Description = "Gasto 1", Amount = 2000 });
+            context.SaveChanges();
+
+            var calculator = new DynamicCalculator(context);
+
+            // Ejemplo de cálculo de fórmula compleja
+            var fieldsToCalculate = new Dictionary<string, string>
+            {
+                { "Employee", "(Salary + Bonus) * 0.1 / Amount" },
+                { "Expense", "Amount" }
+            };
+
+            double result = calculator.Calculate(fieldsToCalculate);
+
+            Console.WriteLine("El resultado de la fórmula es: " + result);
+        }
+    }
+}

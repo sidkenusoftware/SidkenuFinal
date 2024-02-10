@@ -1,0 +1,104 @@
+using FontAwesome.Sharp;
+using Serilog;
+using Sidkenu.Servicio.Interface.Seguridad;
+using SidkenuWF.Formularios.Base;
+using SidkenuWF.Formularios.Base.Constantes;
+using SidkenuWF.Formularios.Core.Controles;
+using SidkenuWF.Formularios.Core.Varios;
+
+namespace SidkenuWF.Formularios.Core
+{
+    public partial class _00142_OrdenesFabricacion : FormularioComun
+    {
+        private MyListUserControl<CtrolOrdenFabricacion> _ordenesPendientes;
+        private MyListUserControl<CtrolOrdenFabricacion> _ordenesEnProceso;
+        private MyListUserControl<CtrolOrdenFabricacion> _ordenesFinalizadas;
+
+        public _00142_OrdenesFabricacion(ISeguridadServicio seguridadServicio,
+                                         IConfiguracionServicio configuracionServicio,
+                                         ILogger logger)
+                                        : base(seguridadServicio, configuracionServicio, logger)
+        {
+            InitializeComponent();
+
+            base.TituloFormulario = FormularioConstantes.Titulo;
+            base.Titulo = "Odenes de Fabricación";
+            base.Logo = IconChar.BuildingFlag;
+
+            _ordenesPendientes = new MyListUserControl<CtrolOrdenFabricacion>();
+            _ordenesEnProceso = new MyListUserControl<CtrolOrdenFabricacion>();
+            _ordenesFinalizadas = new MyListUserControl<CtrolOrdenFabricacion>();
+
+            flpEnProceso.AllowDrop = true;
+
+            flpPendientes.DragEnter += FlpEnProceso_DragEnter;
+            flpPendientes.DragDrop += FlpEnProceso_DragDrop;
+
+            flpEnProceso.DragEnter += FlpEnProceso_DragEnter;
+            flpEnProceso.DragDrop += FlpEnProceso_DragDrop;
+
+            flpFinalizado.DragEnter += FlpEnProceso_DragEnter;
+            flpFinalizado.DragDrop += FlpEnProceso_DragDrop;
+        }
+
+        private void FlpEnProceso_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(CtrolOrdenFabricacion)))
+            {
+                var ctrolOrden = e.Data.GetData(typeof(CtrolOrdenFabricacion)) as CtrolOrdenFabricacion;
+
+                if (ctrolOrden != null && ctrolOrden.SePuedeFabricar)
+                {
+                    e.Effect = DragDropEffects.Move;
+                }
+                else 
+                {
+                    e.Effect = DragDropEffects.None;
+                }
+            }
+        }
+
+        private void FlpEnProceso_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(CtrolOrdenFabricacion)))
+            {
+                var ctrolOrden = e.Data.GetData(typeof(CtrolOrdenFabricacion)) as CtrolOrdenFabricacion;
+
+                if (ctrolOrden != null)
+                {
+                    ((FlowLayoutPanel)sender).Controls.Add(ctrolOrden);
+                }
+            }
+        }
+
+        private void CtrolOrden_MouseDown(object sender, MouseEventArgs e)
+        {
+            var ctrolOrden = sender as CtrolOrdenFabricacion;
+
+            if (ctrolOrden != null)
+            {
+                DoDragDrop(ctrolOrden, DragDropEffects.Move);
+            }
+        }
+
+        private void _00142_OrdenesFabricacion_Shown(object sender, EventArgs e)
+        {
+            CargarDatos();
+        }
+
+        private void CargarDatos()
+        {
+            var ctrolNuevo1 = new CtrolOrdenFabricacion();
+            ctrolNuevo1.MouseDown += CtrolOrden_MouseDown;
+            ctrolNuevo1.SePuedeFabricar = true;
+
+            flpPendientes.Controls.Add(ctrolNuevo1);
+
+            var ctrolNuevo2 = new CtrolOrdenFabricacion();
+            ctrolNuevo2.MouseDown += CtrolOrden_MouseDown;
+            ctrolNuevo2.SePuedeFabricar = false;
+
+            flpPendientes.Controls.Add(ctrolNuevo2);
+        }
+    }
+}

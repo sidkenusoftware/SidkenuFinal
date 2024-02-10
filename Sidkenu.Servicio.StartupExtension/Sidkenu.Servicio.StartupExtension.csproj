@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="7.0.1" />
+    <PackageReference Include="AutofacSerilogIntegration" Version="5.0.0" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.3.0" />
+    <PackageReference Include="Serilog.Sinks.MySQL" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sidkenu.Aplicacion.CorreoElectronico\Sidkenu.Aplicacion.CorreoElectronico.csproj" />
+    <ProjectReference Include="..\Sidkenu.Dominio.Repositorio\Sidkenu.Dominio.Repositorio.csproj" />
+    <ProjectReference Include="..\Sidkenu.Dominio.UnidadDeTrabajo\Sidkenu.Dominio.UnidadDeTrabajo.csproj" />
+    <ProjectReference Include="..\Sidkenu.Infraestructura\Sidkenu.Infraestructura.csproj" />
+    <ProjectReference Include="..\Sidkenu.Servicio.Implementacion\Sidkenu.Servicio.Implementacion.csproj" />
+    <ProjectReference Include="..\Sidkenu.Servicio.Interface\Sidkenu.Servicio.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

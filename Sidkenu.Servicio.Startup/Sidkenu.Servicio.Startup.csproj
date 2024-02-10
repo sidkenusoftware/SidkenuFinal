@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sidkenu.Dominio.Repositorio\Sidkenu.Dominio.Repositorio.csproj" />
+    <ProjectReference Include="..\Sidkenu.Dominio.UnidadDeTrabajo\Sidkenu.Dominio.UnidadDeTrabajo.csproj" />
+    <ProjectReference Include="..\Sidkenu.Infraestructura\Sidkenu.Infraestructura.csproj" />
+    <ProjectReference Include="..\Sidkenu.Servicio.Implementacion\Sidkenu.Servicio.Implementacion.csproj" />
+  </ItemGroup>
+
+</Project>

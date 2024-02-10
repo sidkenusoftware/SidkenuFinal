@@ -1,0 +1,83 @@
+ISeguridadServicio seguridadServicio,
+IConfiguracionServicio configuracionServicio,
+ILogger logger,
+
+seguridadServicio, configuracionServicio, logger,
+
+Program.Container.Resolve<ISeguridadServicio>(),
+Program.Container.Resolve<IConfiguracionServicio>(),
+Program.Container.Resolve<ILogger>(),
+
+
+base._seguridadServicio,
+base._configuracionServicio,
+base._logger,
+
+
+try
+{
+
+}
+catch (Exception ex)
+{
+  if (base._configuracionDTO.LogError)
+  {
+    _logger.Error(ex, $"Error en el formateo de las columnas en {base.Titulo}.");
+  }
+
+  MessageBox.Show("Los nombres de las columnas no coinciden");
+}
+
+
+
+  if (result.State)
+            {
+                this.dgvGrilla.DataSource = result.Data;
+
+                base.Buscar(cadenaBuscar, verEliminados);
+            }
+            else
+            {
+                if (base._configuracionDTO.LogError)
+                {
+                    _logger.Error($"{base.Titulo}: error al obtener los datos. User: {Properties.Settings.Default.PersonaLogin}");
+                }
+
+                MessageBox.Show("Ocurrió un error al obtener los datos");
+            }
+
+
+Ajustes de Seguridad me falta hacer
+
+IUnidadDeTrabajo unitOfWork, 
+            IMapper mapper, 
+            ILogger logger,
+
+ServicioBase
+
+if (!validationResult.IsValid)
+                {
+                    var mensaje = ErrorValidator.ObtenerErrores(validationResult);
+
+                    if (_configuracionDTO.LogInformacion)
+                    {
+                        _logger.Information($"Error de validacion de Datos de Empresa: {mensaje}");
+                    }
+
+                    return new ResultDTO
+                    {
+                        State = false,
+                        Message = mensaje,
+                    };
+                }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,89 @@
+Articulo
+
+Tipo => Simple, Formula, Kit
+Escala/Variante => No Usa, Base, Combinacion (Esta opcion solo se habilita para los tipos Simple y Formula)
+Activar Familia/Categoria => true o false
+Familia/Categoria => Ej Bebidas, aqui tambien se puede poner las cuentas y restricciones de ventas
+Codigo => si esta tildado el check de activar familia, toma por defecto el codigo de familia +  el codigo del articulo
+Referencia Interna => codigo interno de la empresa
+Perfil Articulo => Compra-Venta, Compra, Venta
+EstaBloqueado => Sirve para cuando por ejemplo se vaa a hacer un recuento de inventario, para que no afecte el conteo, o sea no se pueda vender ni comprar mietras se hace el conteo.
+LLevaStock => true o false. Ej: se lo pone en falso cuando por ejemplo es un servicio que no requiere que lleve stock. Por lo general esta activado (true)
+PermiteStockNegativo => true o false
+TienePerdida => true o false, en caso true, se activa el campo porcentaje/valor de perdida, Ejemplo cuando se hace un armado, una mila napolitana por ejemplo
+PorcentajePerdida
+
+Porcentaje de Comision
+Porcentaje de Bonificacion
+Fecha Max Porcentaje de Bonificacion
+Porcentaje de Utilidad
+
+TieneGarantia => true o False
+Garantia => Cantidad de meses.
+
+Facturacion Por Importe => es cuando en venta uno pone el precio del articulo, ejemplo los caramelos
+
+Stock Maximo
+Stock Minimo
+Punto Pedido
+
+Unidad de Medida en Stock + Equivalencia
+Unidad de Medida en Ventas + Equivalencia
+Unidad de Medida en Compras + Equivalencia
+
+Alicuota del Iva => Porcentaje Ej: 21% => esto se debe elegir tanto para ventas como para compras
+
+Cliente => Puedo especificar una bonificacion parta uno o varios clientes
+
+Proveedor => puedo asignar a uno o varios proveedores con el codigo especifico del proveedor
+
+Productos Opcionales => Esta opcion sirve para que puedas agregar produtos que te salgan para ofrecer al cliente al momento de vender.
+
+Nota:
+Tambien se puede dar de alta alrticulos con una plantilla pre cargada y solo se debera cargar aquellos campos que quedaron en blanco
+
+El Kit puede ser fijo a Variable:
+
+Puedo agregar en la factura que el producto no se entregara en la fecha actual sino en una pactada por el vendedor. en este caso descuenta de stock pero se espera el ingreso de la mercaderia.
+luego se debera buscar la factura o por cliente y seleccionar lo que quedaba para entregar y entregarlo al cliente.
+
+Articulo/Compras
+
+Obtener bajo pedido => true o false, es para que se incorpore de manera automatica a una oprden de pedido dependiendo de los parametros de stock minimo y maximo y punto de pedido.
+
+Plazo entrega=> es la cantidad de dias de entrega para el cliente;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
